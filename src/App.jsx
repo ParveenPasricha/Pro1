@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import Login from "./Components/Login";
 import Series from "./Components/Series";
+import LoginVerification from "./Components/LoginVerfication";
 
 const App = () => {
   return (
@@ -16,7 +17,8 @@ const App = () => {
           <Route path="/Login" element={<Login/>}>
           </Route>
             <Route path="/series" element={<Series/>}/>
-        </Routes>
+            <Route path="/otp-verification" element={<LoginVerification/>}/>
+          </Routes>
       </BrowserRouter>
     </>
   );

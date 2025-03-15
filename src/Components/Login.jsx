@@ -10,6 +10,20 @@ const Login = () => {
     setIsOpen(false);
     navigate('/');
   };
+  const handleLogin=()=>{
+    if(!mobileNumber){
+        alert("Please Fill Field")
+        return
+    }
+    else if(mobileNumber.length !==  10)
+    {
+        alert("please valued number")
+        return
+    }
+    else{
+        navigate('/otp-verification')
+    }
+  }
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-800">
@@ -28,7 +42,7 @@ const Login = () => {
               value={mobileNumber} 
               onChange={(e) => setMobileNumber(e.target.value)}
             />
-            <button className="w-full bg-green-500 text-white py-2 rounded-md">Continue</button>
+            <button onClick={handleLogin} className="w-full bg-green-500 text-white py-2 rounded-md">Continue</button>
           </div>
         </div>
       )}
