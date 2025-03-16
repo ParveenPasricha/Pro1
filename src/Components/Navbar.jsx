@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const handleMenuClick = (item) => {
+    console.log(`${item} clicked`);
+    setMenuOpen(false); 
+  };
+
   return (
     <div className="flex items-center justify-between px-10 py-4 bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg fixed top-0 w-full z-10 text-white">
+
       <div className="w-20">
         <img
           onClick={() => navigate("/")}
           src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg"
           alt="Logo"
-          className="w-full h-auto rounded-full shadow-md border-2 border-white"
+          className="w-full h-auto rounded-full shadow-md border-2 border-white cursor-pointer"
         />
       </div>
 
@@ -22,17 +29,11 @@ const NavBar = () => {
           <option>Railway</option>
           <option>Banking</option>
         </select>
-        <button className="hover:text-yellow-300 transition-all">
-          SuperCoaching
-        </button>
-        <button className="hover:text-yellow-300 transition-all">
-          Test Series
-        </button>
-        <button className="hover:text-yellow-300 transition-all">
-          Skill Academy
-        </button>
-        <button className="hover:text-yellow-300 transition-all">Pass</button>
-        <button className="hover:text-yellow-300 transition-all">More</button>
+        {["SuperCoaching", "Test Series", "Skill Academy", "Pass", "More"].map((item) => (
+          <button key={item} className="hover:text-yellow-300 transition-all">
+            {item}
+          </button>
+        ))}
       </div>
 
       <div className="relative w-64 hidden md:block">
@@ -51,8 +52,25 @@ const NavBar = () => {
         Get Started
       </Link>
 
-      <div className="md:hidden">
-        <FaBars className="text-white text-2xl cursor-pointer" />
+      <div className="md:hidden relative">
+        <FaBars
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-white text-2xl cursor-pointer"
+        />
+
+        {menuOpen && (
+          <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-lg p-2 w-40">
+            {["SuperCoaching", "Test Series", "Skill Academy", "Pass", "More"].map((item) => (
+              <button
+                key={item}
+                onClick={() => handleMenuClick(item)}
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
