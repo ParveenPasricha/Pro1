@@ -13,6 +13,7 @@ const Login = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+    navigate('/')
   };
 
   const handleLogin = () => {

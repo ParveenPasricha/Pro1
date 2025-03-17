@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { Bars } from 'react-loading-icons';
+import { Link } from "react-router-dom";
 
 const OnlineTest = () => {
   const [course, setCourse] = useState([]);
@@ -60,7 +61,8 @@ const OnlineTest = () => {
       <div className="w-1/5 bg-black text-white p-5 min-h-full">
         <h2 className="text-2xl font-bold mb-4">TestBook</h2>
         <ul className="space-y-3">
-          <li className="hover:text-blue-400 cursor-pointer">Home</li>
+          <li className="hover:text-blue-400 cursor-pointer">
+            <Link className="text-white" to='/'>Home</Link></li>
           <li className="hover:text-blue-400 cursor-pointer">Test Series</li>
           <li className="hover:text-blue-400 cursor-pointer">
             Live Tests & Quizzes
