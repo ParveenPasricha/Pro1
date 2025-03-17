@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-import { Bars } from 'react-loading-icons';
+import { Bars } from "react-loading-icons";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
+import axios from "axios";
 
-const OnlineTest = () => {
+const TestSeries = () => {
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handleCourse=(id)=>{
+    console.log("Clicked on Test Series with ID:", id)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://dummyjson.com/posts");
-        const data = await response.json();
-        setCourse(data.posts);
+        const response = await axios.get("http://localhost:5000/admin/get");
+        console.log(response);
+        setCourse(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -52,11 +56,19 @@ const OnlineTest = () => {
         <h2 className="text-2xl font-bold mb-4">TestBook</h2>
         <ul className="space-y-3">
           <li className="hover:text-blue-400 cursor-pointer">
-            <Link className="text-white" to="/">Home</Link>
+            <Link className="text-white" to="/">
+              Home
+            </Link>
           </li>
-          <li className="hover:text-blue-400 cursor-pointer">Test Series</li>
-          <li className="hover:text-blue-400 cursor-pointer">Live Tests & Quizzes</li>
-          <li className="hover:text-blue-400 cursor-pointer">Previous Year Papers</li>
+          <li className="hover:text-blue-400 cursor-pointer">
+            <Link to="/">Test Series</Link>
+          </li>
+          <li className="hover:text-blue-400 cursor-pointer">
+            Live Tests & Quizzes
+          </li>
+          <li className="hover:text-blue-400 cursor-pointer">
+            Previous Year Papers
+          </li>
         </ul>
       </div>
 
@@ -76,11 +88,29 @@ const OnlineTest = () => {
           {course.length > 0 ? (
             course.map((test) => (
               <div
-                key={test.id}
-                className="p-4 bg-purple-100 rounded-lg shadow-md"
+                key={test._id}
+                className="bg-white p-4 rounded-lg shadow-lg border border-gray-300"
               >
-                <h2 className="text-lg font-semibold">{test.title}</h2>
-                <p>{test.body}</p>
+                <div className="flex items-center justify-between">
+                  {/* <img src={test.logo} alt={test.title} className="w-12 h-12" /> */}
+                  <span className="text-yellow-500 font-bold">
+                    {test.users}K Users
+                  </span>
+                </div>
+                <h2 className="text-lg font-semibold mt-2">{test.title}</h2>
+                <p className="text-gray-600">
+                  {test.total_tests} Total Tests |{" "}
+                  <span className="text-green-500">
+                    {test.free_tests} Free Tests
+                  </span>
+                </p>
+                <p className="text-blue-500">{test.languages?.join(", ")}</p>
+                <ul className="list-disc pl-4 text-gray-700">
+                  {test.details}
+                </ul>
+                <button onClick={()=>handleCourse(test._id)} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg">
+                  View Test Series
+                </button>
               </div>
             ))
           ) : (
@@ -92,4 +122,4 @@ const OnlineTest = () => {
   );
 };
 
-export default OnlineTest;
+export default TestSeries;

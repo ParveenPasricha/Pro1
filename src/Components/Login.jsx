@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { login } from "./Redux/authSlice";
+import axios from "axios";
+
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -9,14 +13,25 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
   const navigate = useNavigate('')
-
+  const dispatch = useDispatch()
 
   const handleClose = () => {
     setIsOpen(false);
     navigate('/')
   };
 
-  const handleLogin = () => {
+  // const handleLogin = async () => {
+  //     const userData = {
+  //         name: "Parveen", 
+  //         mobile: "9653402603"
+  //     };
+  
+  //     dispatch(login(userData));  // 👈 Ensure yeh call ho raha ho
+  //     console.log("User logged in:", userData); // 👈 Yeh line add karo
+  // };
+  
+
+  const handleLogin = async () => {
     if (!mobileNumber) {
       setError("Please enter your mobile number.");
       return;
@@ -26,6 +41,21 @@ const Login = () => {
     } else {
       setError(""); // Clear error if input is valid
       setIsOtpStage(true);
+    }
+    try {
+      const response = await axios.post("http://localhost:5000/api/login",{
+        "mobile": mobileNumber
+      })
+      console.log(response)
+      if(response.data.user){
+        dispatch(login(response.data.user))
+        navigate("/testseries")
+      }
+      else{
+        setError("Login Failed! Please try again.")
+      }
+    } catch (error) {
+    console.log("error aaya hai dakhle: ", error)      
     }
   };
 

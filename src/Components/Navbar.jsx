@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "./Redux/authSlice"; // Path confirm karo!
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
-  const handleMenuClick = (item) => {
-    console.log(`${item} clicked`);
-    setMenuOpen(false); 
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const user = useSelector((state) => state.auth.user);
+  console.log("Redux user:", user);
+
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]); // Redux state update hone par re-render hoga
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login"); // Logout hone ke baad redirect
   };
 
   return (
     <div className="flex items-center justify-between px-10 py-4 bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg fixed top-0 w-full z-10 text-white">
-
       <div className="w-20">
         <img
           onClick={() => navigate("/")}
@@ -45,12 +56,24 @@ const NavBar = () => {
         <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-blue-700" />
       </div>
 
-      <Link
-        to="/login"
-        className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded-full transition-all shadow-lg"
-      >
-        Get Started
-      </Link>
+      {currentUser ? (
+        <div className="flex items-center space-x-4">
+          <h1 className="font-bold text-white">Welcome, {currentUser.user}</h1>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 px-3 py-1 rounded text-white hover:bg-red-700 transition-all"
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link
+          to="/login"
+          className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded-full transition-all shadow-lg"
+        >
+          Get Started
+        </Link>
+      )}
 
       <div className="md:hidden relative">
         <FaBars
@@ -63,7 +86,7 @@ const NavBar = () => {
             {["SuperCoaching", "Test Series", "Skill Academy", "Pass", "More"].map((item) => (
               <button
                 key={item}
-                onClick={() => handleMenuClick(item)}
+                onClick={() => setMenuOpen(false)}
                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md"
               >
                 {item}
