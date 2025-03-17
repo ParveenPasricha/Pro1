@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import Login from "./Components/Login";
 import Series from "./Components/Series";
-import LoginVerification from "./Components/LoginVerfication";
+import OnlineTest from "./Components/OnlineTest";
 
 const App = () => {
   return (
@@ -14,10 +14,10 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage/>}/>
-          <Route path="/Login" element={<Login/>}>
+          <Route path="/login" element={<Login/>}>
           </Route>
             <Route path="/series" element={<Series/>}/>
-            <Route path="/otp-verification" element={<LoginVerification/>}/>
+            <Route path="/onlinetest" element={<OnlineTest/>}/>
           </Routes>
       </BrowserRouter>
     </>
