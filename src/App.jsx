@@ -6,8 +6,10 @@ import HomePage from "./Components/HomePage";
 import Login from "./Components/Login";
 import Series from "./Components/Series";
 import TestSeries from "./Components/OnlineTest";
-import Admin from "./Components/Admin";
-
+import Admin from "./Components/Admin/AddPost";
+import AddPost from "./Components/Admin/AddPost";
+import AdminLoginPage from "./Components/Admin/AdminLoginPage";
+import DeletePost from "./Components/Admin/DeletePost";
 
 const App = () => {
   return (
@@ -15,13 +17,14 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage/>}/>
-          <Route path="/login" element={<Login/>}>
-          </Route>
-            <Route path="/series" element={<Series/>}/>
-            <Route path="/testseries" element={<TestSeries/>}/>
-            <Route  path="/admin" element={<Admin/>}/>
-          </Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/series" element={<Series />} />
+          <Route path="/testseries" element={<TestSeries />} />
+          <Route path="/admin" element={<AdminLoginPage />} />
+          <Route path="/admin/addpost" element={<AddPost />} />
+          <Route path="/admin/deletepost" element={<DeletePost />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
