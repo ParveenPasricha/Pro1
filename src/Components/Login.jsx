@@ -42,6 +42,15 @@ const Login = () => {
       setError(""); // Clear error if input is valid
       setIsOtpStage(true);
     }
+  };
+
+  const handleOtpSubmit = async () => {
+    if (otp.length !== 4) {
+      setOtpError("Please enter a valid 4-digit OTP.");
+      return;
+    }
+    alert("OTP Verified Successfully!");
+    navigate('/testseries')
     try {
       const response = await axios.post("http://localhost:5000/api/login",{
         "mobile": mobileNumber
@@ -49,7 +58,6 @@ const Login = () => {
       console.log(response)
       if(response.data.user){
         dispatch(login(response.data.user))
-        navigate("/testseries")
       }
       else{
         setError("Login Failed! Please try again.")
@@ -58,16 +66,6 @@ const Login = () => {
     console.log("error aaya hai dakhle: ", error)      
     }
   };
-
-  const handleOtpSubmit = () => {
-    if (otp.length !== 4) {
-      setOtpError("Please enter a valid 4-digit OTP.");
-      return;
-    }
-    alert("OTP Verified Successfully!");
-    navigate('/onlinetest')
-  };
-
   return (
     <div className="flex justify-center items-center h-screen bg-gray-800">
       {isOpen && (

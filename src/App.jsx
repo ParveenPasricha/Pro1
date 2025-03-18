@@ -6,6 +6,7 @@ import HomePage from "./Components/HomePage";
 import Login from "./Components/Login";
 import Series from "./Components/Series";
 import TestSeries from "./Components/OnlineTest";
+import Admin from "./Components/Admin";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           </Route>
             <Route path="/series" element={<Series/>}/>
             <Route path="/testseries" element={<TestSeries/>}/>
+            <Route  path="/admin" element={<Admin/>}/>
           </Routes>
       </BrowserRouter>
     </>
