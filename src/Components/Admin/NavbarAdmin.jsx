@@ -16,19 +16,16 @@ const NavbarAdmin = () => {
             to="/admin"
             className="text-white font-medium text-lg transition duration-300 hover:text-yellow-300"
           >
-             Home
+             🏠 Home
+          </Link>
+          <Link to="/admin/course" className="text-white font-medium text-lg transition duration-300 hover:text-yellow-300">
+          📚 All Course
           </Link>
           <Link
             to="/admin/addpost"
             className="text-white font-medium text-lg transition duration-300 hover:text-yellow-300"
           >
             ➕ Add Post
-          </Link>
-          <Link
-            to="/admin/deletepost"
-            className="text-white font-medium text-lg transition duration-300 hover:text-yellow-300"
-          >
-            ❌ Delete Post
           </Link>
         </div>
       </div>

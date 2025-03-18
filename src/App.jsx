@@ -9,8 +9,7 @@ import TestSeries from "./Components/OnlineTest";
 import Admin from "./Components/Admin/AddPost";
 import AddPost from "./Components/Admin/AddPost";
 import AdminLoginPage from "./Components/Admin/AdminLoginPage";
-import DeletePost from "./Components/Admin/DeletePost";
-import EditPost from "./Components/Admin/EditPost";
+import Course from "./Components/Admin/Course";
 
 const App = () => {
   return (
@@ -24,8 +23,7 @@ const App = () => {
           <Route path="/testseries" element={<TestSeries />} />
           <Route path="/admin" element={<AdminLoginPage />} />
           <Route path="/admin/addpost" element={<AddPost />} />
-          <Route path="/admin/deletepost" element={<DeletePost />} />
-          <Route path="admin/editpost/:_id" element={<EditPost />} />
+          <Route path="/admin/course" element={<Course/>} />
         </Routes>
       </BrowserRouter>
     </>

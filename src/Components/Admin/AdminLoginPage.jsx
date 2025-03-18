@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaUserShield } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AdminLoginPage = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -13,6 +15,8 @@ const AdminLoginPage = () => {
     e.preventDefault();
     console.log("Login Data: ", formData);
     alert("Admin Login Successful! ✅");
+    navigate('/admin/course',)
+    
   };
 
   return (
