@@ -10,6 +10,7 @@ import Admin from "./Components/Admin/AddPost";
 import AddPost from "./Components/Admin/AddPost";
 import AdminLoginPage from "./Components/Admin/AdminLoginPage";
 import DeletePost from "./Components/Admin/DeletePost";
+import EditPost from "./Components/Admin/EditPost";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/admin" element={<AdminLoginPage />} />
           <Route path="/admin/addpost" element={<AddPost />} />
           <Route path="/admin/deletepost" element={<DeletePost />} />
+          <Route path="admin/editpost/:_id" element={<EditPost />} />
         </Routes>
       </BrowserRouter>
     </>
