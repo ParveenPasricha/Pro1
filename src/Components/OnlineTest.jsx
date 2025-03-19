@@ -85,38 +85,40 @@ const TestSeries = () => {
 
         <h1 className="text-2xl font-bold mb-4">Popular Test Series</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {course.length > 0 ? (
-            course.map((test) => (
-              <div
-                key={test._id}
-                className="bg-white p-4 rounded-lg shadow-lg border border-gray-300"
-              >
-                <div className="flex items-center justify-between">
-                  {/* <img src={test.logo} alt={test.title} className="w-12 h-12" /> */}
-                  <span className="text-yellow-500 font-bold">
-                    {test.users}K Users
-                  </span>
-                </div>
-                <h2 className="text-lg font-semibold mt-2">{test.title}</h2>
-                <p className="text-gray-600">
-                  {test.total_tests} Total Tests |{" "}
-                  <span className="text-green-500">
-                    {test.free_tests} Free Tests
-                  </span>
-                </p>
-                <p className="text-blue-500">{test.languages?.join(", ")}</p>
-                <ul className="list-disc pl-4 text-gray-700">
-                  {test.details}
-                </ul>
-                <button onClick={()=>handleCourse(test._id)} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg">
-                  View Test Series
-                </button>
-              </div>
-            ))
-          ) : (
-            <p>Loading...</p>
-          )}
+  {course.length > 0 ? (
+    course.map((test) => (
+      <div
+        key={test._id}
+        className="bg-white p-4 rounded-lg shadow-lg border border-gray-300 flex flex-col justify-between"
+      >
+        <div>
+          <div className="flex items-center justify-between">
+            <span className="text-yellow-500 font-bold">
+              {test.users}K Users
+            </span>
+          </div>
+          <h2 className="text-lg font-semibold mt-2">{test.title}</h2>
+          <p className="text-gray-600">
+            {test.total_tests} Total Tests |{" "}
+            <span className="text-green-500">{test.free_tests} Free Tests</span>
+          </p>
+          <p className="text-blue-500">{test.languages?.join(", ")}</p>
+          <ul className="list-disc pl-4 text-gray-700">{test.details}</ul>
         </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => handleCourse(test._id)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            View Test Series
+          </button>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>Loading...</p>
+  )}
+</div>
       </div>
     </div>
   );

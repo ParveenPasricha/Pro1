@@ -20,7 +20,7 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="h-screen flex mt-28 items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white px-4">
+    <div className="h-screen flex mt-16 items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white px-4">
       {/* Glassmorphic Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
