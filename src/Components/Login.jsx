@@ -7,13 +7,13 @@ import axios from "axios";
 const Login = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [mobileNumber, setMobileNumber] = useState("");
-  const [username, setUsername] = useState(""); // Username field
+  const [username, setUsername] = useState(""); 
   const [error, setError] = useState("");
   const [isOtpStage, setIsOtpStage] = useState(false);
   const [otp, setOtp] = useState("");
-  const [genOTP, setGenOTP] = useState(null);  
+  const [genOTP, setGenOTP] = useState("");  
   const [otpError, setOtpError] = useState("");
-  const [isNewUser, setIsNewUser] = useState(false); // Track if user needs to signup
+  const [isNewUser, setIsNewUser] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const Login = () => {
   };
 
   const generateOTP = () => {
-    return Math.floor(1000 + Math.random() * 9000);
+    return Math.floor(1000 + Math.random() * 9000).toString(); // Convert to string
   };
 
   const handleLogin = async () => {
@@ -37,37 +37,36 @@ const Login = () => {
 
     setError("");
     try {
-      // 🔍 Check if user exists in DB
       const response = await axios.post("http://localhost:5000/api/login", { mobile: mobileNumber });
 
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token); // Save JWT token
+      }
+
       if (response.data.user) {
-        // ✅ User exists → Proceed with OTP
         setIsNewUser(false);
         const newOTP = generateOTP();
         setGenOTP(newOTP);
         console.log("Generated OTP:", newOTP);
         setIsOtpStage(true);
       } else {
-        // ❌ User not found → Show signup fields
         setIsNewUser(true);
       }
     } catch (error) {
       console.log("Error checking user:", error);
-      setIsNewUser(true); // Assume new user if error
+      setIsNewUser(true);
     }
   };
 
   const handleSignup = async () => {
-    if (!username) {
-      setError("Please enter a username.");
+    if (!username.trim()) {
+      setError("Please enter a valid username.");
       return;
     }
 
     try {
-      // 📌 Register new user
-      await axios.post("http://localhost:5000/api/signup", { user:username, mobile: mobileNumber });
+      await axios.post("http://localhost:5000/api/signup", { user: username, mobile: mobileNumber });
 
-      // ✅ Proceed with OTP
       setIsNewUser(false);
       const newOTP = generateOTP();
       setGenOTP(newOTP);
@@ -85,7 +84,7 @@ const Login = () => {
       return;
     }
 
-    if (parseInt(otp) === genOTP) {
+    if (otp === genOTP) { 
       alert("OTP Verified Successfully!");
       console.log("OTP Verified Successfully!");
 
@@ -93,7 +92,7 @@ const Login = () => {
 
       try {
         const response = await axios.post("http://localhost:5000/api/login", { mobile: mobileNumber });
-        
+
         if (response.data.user) {
           dispatch(login(response.data.user));
         } else {
@@ -113,7 +112,6 @@ const Login = () => {
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            {/* OTP Stage UI */}
             {isOtpStage ? (
               <>
                 <div className="flex justify-between items-center mb-4">
@@ -149,7 +147,6 @@ const Login = () => {
                 </button>
               </>
             ) : isNewUser ? (
-              // Signup UI
               <>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-semibold">Sign Up</h2>
@@ -180,7 +177,6 @@ const Login = () => {
                 </button>
               </>
             ) : (
-              // Mobile Number Input UI
               <>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-semibold">Get started with Testbook!</h2>

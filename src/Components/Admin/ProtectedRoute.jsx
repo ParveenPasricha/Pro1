@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
+import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = () => {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  return isAuthorized ? <Outlet /> : <Navigate to='/admin' />;
+const ProtectedRoute = ({ children }) => {
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;
